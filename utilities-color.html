@@ -68,8 +68,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="">Register</a>                  
+                        <h6 class="collapse-header">Custom Components:</h6>                        <a class="collapse-item" href="">Register</a>                  
                     </div>
                 </div>
             </li>
@@ -82,9 +81,13 @@
                     <span>Collector</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="#">Register</a>                      
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
             </li>
@@ -100,7 +103,10 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>                     
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
             </li>
@@ -218,516 +224,23 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">MEMBERS INFORMATION</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
-               <!-- Content Row -->
+                    
+                           
 
-               <div class="row">
-
-                   <div class="col-lg-6">
-
-   <form>
-
-<section>
-
-<h4><b>Members Information</b></h4>
-
-<div class="form-row">
-    <div class="form-group col-md-4">
-      <label for="mID">Members ID</label>
-         <input type="text" class="form-control" id="mID">
-    </div>
-
-   <div class="form-group col-md-4">
-     <label for="doa">Date of Application</label>
-        <input type="date" id="date" name="date" class="form-control">
-   </div>
-</div>
-
-<div class="form-row">
-    <div class="form-group col-md-3">
-      <label for="inputls">Last Name</label>
-         <input type="text" class="form-control" id="inputls">
-    </div>
-
-    <div class="form-group col-md-3">
-      <label for="inputfn">First Name</label>
-         <input type="text" class="form-control" id="inputfn">
-    </div>
-
-    <div class="form-group col-md-3">
-      <label for="inputmn">Middle Name</label>
-         <input type="text" class="form-control" id="inputmn">
-    </div>
-
-    <div class="form-group col-md-2">
-      <label for="inputmn">Suffix</label>
-         <input type="text" class="form-control" id="inputmn">
-    </div>
-</div>
-
-<div class="form-row">
-    <div class="form-group col-md-3">
-      <label for="inputAddress">Address</label>
-         <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-  
-    <div class="form-group col-md-3">
-      <label for="inputCity">City/Province</label>
-         <select id="inputCity" class="form-control">
-             <option selected>Choose...</option>
-               <option>...</option>
-         </select>
-    </div>
-
-    <div class="form-group col-md-3">
-      <label for="inputMunicipal">Municipality</label>
-        <select id="inputMunicipal" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-   
-    <div class="form-group col-md-3">
-      <label for="inputBrgy">Barangay</label>
-<select id="inputBrgy" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div> </div>
-
-<div class="form-row">
-  <div class="form-group col-md-3">
-    <label for="hbd">Birthday</label>
-      <input type="date" id="hbd" name="date" class="form-control">
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="Age">Age</label>
-      <input type="text" class="form-control" id="Age">
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="bp">Birthplace</label>
-      <input type="text" class="form-control" id="bp">
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="Gender">Gender</label>
-      <select id="Gender" class="form-control">
-        <option selected>Choose...</option>
-        <option>Male</option>
-        <option>Female</option>
-      </select>
-  </div> </div>
-
-<div class="form-row">
-  <div class="form-group col-md-3">
-    <label for="cs">Civil Status</label>
-      <select id="Gender" class="form-control">
-        <option selected>Choose...</option>
-        <option>Single</option>
-        <option>Married</option>
-        <option>Widowed</option>
-        <option>Divorced</option>
-      </select>
-  </div>
-
-  <div class="form-group col-md-4">
-    <label for="cn">Contact No.</label>
-      <input type="text" class="form-control" id="cn">
-  </div>
-
-  <div class="form-group col-md-4">
-    <label for="Email">Email</label>
-      <input type="text" class="form-control" id="Email">
-   </div>
-</div>
-</section>
-
-<hr class="my-6">
-<section> <br>
-<h4><b>Beneficiaries</b></h4>
-
-  <div class="form">
-    <label for="primary"><i>Primary</i></label>
-  </div>
-
-<div class="form-row">
-  <div class="form-group col-md-5">
-    <label for="nameP">Name</label>
-      <input type="text" class="form-control" id="primary">
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="rel1">Relationship</label>
-      <input type="text" class="form-control" id="rel1">
-  </div>
-
-  <div class="form-group col-md-1">
-    <label for="Age1">Age</label>
-      <input type="text" class="form-control" id="Age1">
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="hbd1">Birthday</label>
-      <input type="date" id="hbd1" name="date"
-class="form-control">
-  </div>
-</div>
-
-<div class="form">
-    <label for="Contingent"><i>Contingent</i></label>
-  </div>
-
-<div class="form-row">
-  <div class="form-group col-md-5">
-    <label for="nameC">Name</label>
-      <input type="text" class="form-control" id="primary">
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="rel2">Relationship</label>
-      <input type="text" class="form-control" id="rel2">
-  </div>
-
-  <div class="form-group col-md-1">
-    <label for="Age2">Age</label>
-      <input type="text" class="form-control" id="Age2">
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="hbd2">Birthday</label>
-      <input type="date" id="hbd2" name="date"
-class="form-control">
-  </div>
-</div>
-</section>
-
-<hr class="my-6">
-<section> <br>
-<h4><b>Sales Agent Information</b></h4>
-
-<div class="form-row">
-  <div class="form-group col-md-3">
-    <label for="agent">Agent ID</label>
-      <input type="text" class="form-control" id="agent">
-  </div>
-
-  <div class="form-group col-md-4">
-    <label for="afn">Agent Full Name</label>
-      <input type="text" class="form-control" id="afn">
-  </div>
-
-  <div class="form-group col-md-4">
-    <label for="position">Position</label>
-      <input type="text" id="position"
-class="form-control">
-  </div>
-
-   <div class="form-group col-auto text-left">
-    <button data-toggle="modal" data-target="#modal" class="btn btn-outline-dark" type="button">  Pick Agent </button>
-
-<div id="modal" class="modal fixed-right fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><b>List of Agents</b></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Please Choose
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">... </a>
-    <a class="dropdown-item" href="#">... </a>
-    <a class="dropdown-item" href="#">... </a>
-  </div>
-</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        
-      </div>
-    </div>
-  </div> 
-</div>
-  </div> 
-
-</div>
-</section>
-
-<hr class="my-6">
-<section> <br>
-<h4><b>Plan Type</b></h4>
-
-<div class="form-row">
-  <div class="form-group col-md-4">
-    <label for="pt">Plan Type</label>
-      <select id="pt" class="form-control">
-        <option selected>Choose...</option>
-        <option></option>
-        <option></option>
-      </select>
-  </div>
-
-  <div class="form-group col-md-4">
-    <label for="mtp">Months to Pay</label>
-      <select id="mtp" class="form-control">
-        <option selected>Choose...</option>
-        <option></option>
-        <option></option>
-      </select>
-  </div>
-
-  <div class="form-group col-auto">
-    <label for="ta">Total Amount</label>
-      <input type="number" id="ta" class="form-control">
-  </div>
-</div>
-
-<div class="form-row">
-  <div class="form-group col-md-4">
-    <label for="mpayment">Mode of Payment</label>
-      <select id="mpayment" class="form-control">
-        <option selected>Choose...</option>
-        <option></option>
-        <option></option>
-      </select>
-  </div>
-
-  <div class="form-group col-md-4">
-    <label for="mtp">No.of Months Paid </label>
-      <select id="nopm" class="form-control">
-        <option selected>Choose...</option>
-        <option></option>
-        <option></option>
-      </select>
-  </div>
-
-  <div class="form-group col-auto">
-    <label for="remaining">Remaining</label>
-      <input type="number" id="remaining" class="form-control">
-  </div>
-</div>
-</section>
-
-<hr class="my-6">
-<section> <br>
-<h4><b>Declaration of Health Status</b></h4>
-
-<div> I hereby declare that I am free from any harmful and dreaded diseases like:</div>
-<div> (<i> Answer with Yes or No </i>) </div><br>
-
-<div class="container">
-<div class="row ">
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">1. Any Cardiovascular Problem</label>
-        <div class="form-group">
-          <input class="radio-inline" name="1" type="radio">Yes
-          <input class="radio-inline" name="1" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">2. Cancer/Tumor/Neoplasm</label>
-        <div class="form-group">
-          <input class="radio-inline" name="2" type="radio">Yes
-          <input class="radio-inline" name="2" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">3. Diabetes Mellitus <i>(all types)</i></label>
-        <div class="form-group">
-          <input class="radio-inline" name="3" type="radio">Yes
-          <input class="radio-inline" name="3" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">4. Kidney Problem</label>
-        <div class="form-group">
-          <input class="radio-inline" name="4" type="radio">Yes
-          <input class="radio-inline" name="4" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">5. Severe Respiratory Problem</label>
-        <div class="form-group">
-          <input class="radio-inline" name="5" type="radio">Yes
-          <input class="radio-inline" name="5" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">6. Hernias</label>
-        <div class="form-group">
-          <input class="radio-inline" name="6" type="radio">Yes
-          <input class="radio-inline" name="6" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">7. Endometriosis</label>
-        <div class="form-group">
-          <input class="radio-inline" name="7" type="radio">Yes
-          <input class="radio-inline" name="7" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">8. Hemorrhoids</label>
-        <div class="form-group">
-          <input class="radio-inline" name="8" type="radio">Yes
-          <input class="radio-inline" name="8" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">9. Ear-Nose-Throat Condition Requiring Surgery</label>
-        <div class="form-group">
-          <input class="radio-inline" name="9" type="radio">Yes
-          <input class="radio-inline" name="9" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">10. Cataracts/Glaucoma</label>
-        <div class="form-group">
-          <input class="radio-inline" name="10" type="radio">Yes
-          <input class="radio-inline" name="10" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">11. Epilepsy</label>
-        <div class="form-group">
-          <input class="radio-inline" name="11" type="radio">Yes
-          <input class="radio-inline" name="11" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">12. Cirrhosis of the Liver</label>
-        <div class="form-group">
-          <input class="radio-inline" name="12" type="radio">Yes
-          <input class="radio-inline" name="12" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">13. Anal Fistulae</label>
-        <div class="form-group">
-          <input class="radio-inline" name="13" type="radio">Yes
-          <input class="radio-inline" name="13" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">14. Calculi of the Urinary System</label>
-        <div class="form-group">
-          <input class="radio-inline" name="14" type="radio">Yes
-          <input class="radio-inline" name="14" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-5">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">15. Gastric/Duodenal Ulcer</label>
-        <div class="form-group">
-          <input class="radio-inline" name="15" type="radio">Yes
-          <input class="radio-inline" name="15" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-4">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">16. Hallux Valgus</label>
-        <div class="form-group">
-          <input class="radio-inline" name="16" type="radio">Yes
-          <input class="radio-inline" name="16" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-4">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">17. Collagen Diseases</label>
-        <div class="form-group">
-          <input class="radio-inline" name="17" type="radio">Yes
-          <input class="radio-inline" name="17" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-4">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">18. Hypertension</label>
-        <div class="form-group">
-          <input class="radio-inline" name="18" type="radio">Yes
-          <input class="radio-inline" name="18" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-4">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">19. Cholecystitis/Choielithiasis</label>
-        <div class="form-group">
-          <input class="radio-inline" name="19" type="radio">Yes
-          <input class="radio-inline" name="19" type="radio" checked>No
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-lg-auto">
-      <div class="d-flex justify-content-between">
-        <label class="Bold">20. Others</label>
-        <div class="form-group">
-          <input class="text"></input>
-        </div>
-      </div>
-    </div>
-  </div>
-<div>&nbsp <i>The following, among others, when occurring during the first year of the coverage after the effective date, are considered Pre-Existing.</i></div>
-
-</div>
-</div>
-</section>
-
-<section class="text-center">
-  <button class="btn btn-dark" type="Reset">Reset</button>
-  <button class="btn btn-dark" type="Submit">Submit</button>
-  <a class="btn btn-dark" href="#" role="button">Contribution Report</a>
-</section>
-</section>
-</form>                 
+                   
                             
 
                             
 
-                        
+                        <div class="col-lg-6 mb-4"> </div>
+
                             
-                    </div>
+                    
 
                 </div>
                 <!-- /.container-fluid -->
