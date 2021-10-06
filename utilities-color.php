@@ -1,35 +1,3 @@
-<?php
-// We need to use sessions, so you should always start sessions using the below code.
-include '../dbcon.php';
-session_start();
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-header('Location: ../logout.php');
-exit;
-}
-    if(isset($_SESSION["loggedin"])){
-        if((time() - $_SESSION["last_login_time"]) > 300000){
-            header('location: ../logout.php');
-        }
-else {
-            $_SESSION['last_login_time'] = time();
-}
-    }
-?>
-<?php
-//settng up variables
-$yusername = $_SESSION['username'];
-$getuser = mysqli_query($con,"select * from users where username = '$yusername'");
-$user = mysqli_fetch_array($getuser);
-
-// assigning variable to show
-$authority = $user['user_type'];
-
-/*<!-- ================= AUTHORIZED PERSONEL ONLY ================== -->*/
-if ($authority == "admin" || $authority == "super_admin" || $authority == "user")
-{
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -244,12 +212,13 @@ if ($authority == "admin" || $authority == "super_admin" || $authority == "user"
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800>MEMBERS INFORMATION</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
-                   
+                    <!-- Content Row -->
+                    <div class="row">
 <form>
 
 <section>
@@ -782,18 +751,10 @@ class="form-control">
 </section>
 </section>
 </form>
-            
+                                                                  
+                                             
 
-
-                            
-
-                            
-
-                     
-                            
-                    </div>
-
-                </div>
+               
                 <!-- /.container-fluid -->
 
             </div>
@@ -856,53 +817,7 @@ class="form-control">
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+</body>
 
-        <!-- script type="text/javascript" src="../../jquery.ph-locations.js"></script -->
-        <script type="text/javascript" src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations.js"></script -->
-        <script type="text/javascript">
-            
-            var my_handlers = {
-
-
-                fill_cities: function(){
-
-                    var province_code = $(this).val();
-                    $('#city').ph_locations( 'fetch_list', [{"province_code": province_code}]);
-                },
-
-
-                fill_barangays: function(){
-
-                    var city_code = $(this).val();
-                    $('#barangay').ph_locations('fetch_list', [{"city_code": city_code}]);
-                }
-            };
-
-            $(function(){
-             
-                $('#province').on('change', my_handlers.fill_cities);
-                $('#city').on('change', my_handlers.fill_barangays);
-
-               
-                $('#province').ph_locations({'location_type': 'provinces'});
-                $('#city').ph_locations({'location_type': 'cities'});
-                $('#barangay').ph_locations({'location_type': 'barangays'});
-
-                $('#province').ph_locations('fetch_list');
-            });
-        </script>
-<script>
-    $(document).ready(function(){
-		 $("#select").click("#input");
-    });
-</script>
-</body
 </html>
-<?php
-}
-?>
