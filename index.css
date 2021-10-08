@@ -1,3 +1,4 @@
 .accordionSidebar {     
-  position: fixed-left;
+  position: fixed-top;
+  align: left;
 }
