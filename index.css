@@ -1,8 +1,0 @@
-.navbar-nav {
-  position: fixed;
-}
-
-.content {
-  flex-grow: 1;  /* ensures that the container will take up the full height of the parent container */
-  overflow-y: auto;
-}
