@@ -3,4 +3,7 @@
   position: fixed; 
   margin: -135px 0 0 410px;
   overflow-x: hidden;
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
 }
