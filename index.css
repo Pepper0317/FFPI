@@ -1,9 +1,6 @@
 #accordionSidebar {   
-  width: 190px; 
-  position: fixed; 
-  margin: -135px 0 0 410px;
-  overflow-x: hidden;
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 0 15px;
 }
