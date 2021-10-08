@@ -1,6 +1,6 @@
 .navbar-nav {
   width: 200px;
-  position: fixed;
+  position: sticky;
   z-index: 1;
   top: 0;
   left: 0;
