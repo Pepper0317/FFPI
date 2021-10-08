@@ -1,4 +1,5 @@
 #accordionSidebar {     
   position: fixed;
+  align: left;
   overflow-y: auto;
 }
