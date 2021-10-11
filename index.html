@@ -1,3 +1,36 @@
+<?php
+session_start();
+include "../../connections/database.php";  
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) 
+{
+	header('Location: ../../logout.php');
+	exit;
+}
+    if(isset($_SESSION["loggedin"]))
+    {
+        if((time() - $_SESSION["last_login_time"]) > 30000)
+        {
+            header('location: ../../logout.php');
+        }
+		    else 
+        {
+            $_SESSION['last_login_time'] = time();
+    		}
+    }
+    $yusername = $_SESSION['username'];
+    $getuser = mysqli_query($con,"select * from accounts where username = '$yusername'");
+    $user = mysqli_fetch_array($getuser);
+    // assigning variable to show
+    $authority = $user['position'];
+    if($authority != "admin")
+    {
+      header('location: ../../logout.php');
+    }
+    
+    else
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +43,7 @@
     <meta name="author" content="">
 
     <title>Financial Freedom Plans Inc.</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -35,18 +68,15 @@
     <!-- External CSS -->
     <link rel="stylesheet" type="text/css" href="index.css">
 
-
 </head>
 
 <body id="page-top">
-
-    <!-- Page Wrapper -->
+	<!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Sidebar -->                 
+        <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../collector">
+		<!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../../collector">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="glyphicon glyphicon-grain"></i>
                 </div>
@@ -58,7 +88,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a style="background-color:black;opacity: 0.5;"class="nav-link" href="../dashboard">
+                <a style="background-color:black;opacity: 0.5;"class="nav-link" href="../../dashboard">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -73,7 +103,7 @@
 
             <!-- Nav Item - Planholder Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="planholder-form.html">
+                <a class="nav-link collapsed" href="../../planholder">
                     <i class="fas fa-fw fa-heart"></i>
                     <span>Planholder</span>
                 </a>
@@ -81,7 +111,7 @@
 
             <!-- Nav Item - Collector Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../collector">
+                <a class="nav-link collapsed" href="../../collector">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Collector</span>
                 </a>
@@ -89,7 +119,7 @@
             
             <!-- Nav Item - Agents Collapse Menu -->
             <li class="nav-item">
-              <a class="nav-link collapsed" href="../agent">
+				<a class="nav-link collapsed" href="../../agent">
                     <i class="fas fa-fw fa-handshake"></i>
                     <span>Agent</span>
                 </a>
@@ -97,18 +127,16 @@
 
             <!-- Nav Item - Payment Collapse Menu -->
             <li class="nav-item">
-              <a class="nav-link collapsed" href="../payment">
+				<a class="nav-link collapsed" href="../../payment">
                     <i class="fas fa-fw fa-credit-card"></i>
                     <span>Payment</span>
-                </a>
+				</a>
             </li>
 
             <!-- Nav Item - Reports Collapse Menu -->
-            <li class="nav-item sticky-top">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
+            <li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-
                     <span>Reports</span>
                 </a>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
@@ -125,7 +153,7 @@
 
             <!-- Nav Item - Logout Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../logout.php">
+                <a class="nav-link collapsed" href="../../logout.php">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
@@ -146,10 +174,8 @@
 
             <!-- Main Content -->
             <div id="content">
-
-                <!-- Topbar -->
+			<!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -181,168 +207,758 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="../dashboard/" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="../../dashboard/" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
                                 <img class="img-profile rounded-circle"
-                                    src="../img/undraw_profile.svg">
+                                    src="../../img/undraw_profile.svg">
                             </a>
                         </li>
 
                     </ul>
                 </nav>
+			</div>
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Member`s Information</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                                class="fas fa-download fa-sm text-white-50"></i> Contribution Report</a>
                     </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
+<!-- Begin of Form --> 
+<form method="POST" action="index.php">
+<section>
+<?php
+          $generateID="FFPI-M20000";
+        /*<!-- ================= GENERATE NEW ID ================== -->*/
+        $checkID = mysqli_query($con,"select * from planholders");
+        while($check = mysqli_fetch_array($checkID))
+        {
+          $userID = $check['member_id'];
+          $existingID=substr($userID,6);
+          $addone = $existingID+1;
+          $generateID = "FFPI-M".$addone;
+        
+        }
+        ?>
+<div class="form-row">
+    <div class="form-group col-md-4">
+      <b><label for="mID">Member ID</label></b>
+         <input type="text" name="memberid"readonly id="memberid"value="<?php echo $generateID; ?>"class="form-control"style="background-color:white;">
+    </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Agents</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+   <div class="form-group col-md-4">
+     <b><label for="doa">Date of Application</label></b>
+        <input type="text"readonly id="date" name="date" class="form-control" readonly style="background-color:white;">
+   </div>
+        <!-- ================= DO NOT REMOVE! THIS IS FOR GETTING FULL ADDRESS OF PLANHOLDER ================== -->
+   <div class="form-group col-md-2">
+      <input type="text" style="opacity:0;" id="newprovince" readonly name="newprovince"> 
+      <input type="text" style="opacity:0;"id="newcity" readonly name="newcity"> 
+    </div>
+   <div class="form-group col-md-2">
+      <input type="text" style="opacity:0;" id="newbarangay" readonly name="newbarangay">  
+    </div>
+</div>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Collectors</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">PlanHolders
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">200</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="form-row">
+    <div class="form-group col-md-3">
+      <b><label for="inputls">Last Name</label></b>
+         <input type="text" required="" id="lastname" name="lastname" class="form-control" id="inputls">
+    </div>
 
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Staffs</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="form-group col-md-3">
+      <b><label for="inputfn">First Name</label></b>
+         <input type="text" required id="firstname" name="firstname" class="form-control">
+    </div>
+
+    <div class="form-group col-md-3">
+      <b><label for="inputmn">Middle Name</label></b>
+         <input type="text" required id="middlename"name="middlename" class="form-control">
+    </div>
+
+    <div class="form-group col-md-2">
+      <b><label for="inputmn">Suffix</label></b>
+         <input type="text" required id="suffix" name="suffix" class="form-control">
+    </div>
+</div>
+
+<div class="form-row">
+    
+    <div class="form-group col-md-3">   
+        <b><label for="address">Address</label></b>
+        <input type="text" required id="address" class="form-control" name="address"placeholder="House No./Street">
+    </div>
+    
+    <div class="form-group col-md-2">                  
+                    <b><label for="province">Province</label></b>
+                    <select type="text" required id="province" name="province" class="form-control">
+                      
+                    </select>
+    </div>
+    
+    <div class="form-group col-md-2">
+                    <b><label for="city">City/Municipality</label></b>
+                    <select type="text" id="city" name="city" required class="form-control">
+                    <option required value="" selected hidden>Choose Province First</option>
+                    </select>
+    </div>
                    
-
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->       
+    <div class="form-group col-md-3">
+                    <b><label for="barangay">Barangay</label></b>
+                    <select type="text" onchange="getaddress()" required id="barangay" name="barangay" class="form-control">
+                    <option required value="" selected hidden>Choose Province First</option>
+                    </select>
     </div>
-    <!-- End of Page Wrapper -->
+    <div class="form-group col-md-2">
+                    <b><label for="barangay">Postal/Zip Code</label></b>
+         <input type="number" required id="zipcode" class="form-control" name="zipcode" placeholder="Postal/Zip Code">
+    </div>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+</div>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
+<div class="form-row">
+  <div class="form-group col-md-3">
+    <b><label for="hbd">Birthday</label></b>
+      <input type="date"required id="bday" name="bday" class="form-control">
+  </div>
+
+  <div class="form-group col-md-3">
+    <b><label for="Age">Age</label></b>
+      <input type="text" required id="age" name="age" class="form-control">
+  </div>
+
+  <div class="form-group col-md-3">
+    <b><label for="bp">Birthplace</label></b>
+      <input type="text" required id="bplace" name="bplace" class="form-control" id="bp">
+  </div>
+
+  <div class="form-group col-md-3">
+    <b><label for="Gender">Gender</label></b>
+      <select id="gender" required name="gender" class="form-control">
+      <datalist id="gender">
+                    <option required value="" selected hidden>Choose...</option>
+          <?php
+          $getgender = mysqli_query($con,"select * from gender_list");
+          if($getgender) 
+          {
+                while($checkgender = mysqli_fetch_array($getgender))
+                {
+                  $showall = $checkgender['LIST'];
+                  echo"<option>$showall</option>";
+                }
+          }
+          ?>
+      </select>
+  </div> </div>
+
+<div class="form-row">
+  <div class="form-group col-md-3">
+    <b><label for="cs">Civil Status</label></b>
+      <select id="civilstatus" required name="civilstatus" list="civilstatus"class="form-control">
+      <datalist id="civilstatus">
+                    <option value="" selected hidden>Choose...</option>
+          <?php
+          $getstatus = mysqli_query($con,"select * from dropdown_list");
+          if($getstatus) 
+          {
+                while($checkstatus = mysqli_fetch_array($getstatus))
+                {
+                  $showall = $checkstatus['civil_status_list'];
+                  echo"<option>$showall</option>";
+                }
+          }
+          ?>
+      </select>
+  </div>
+
+  <div class="form-group col-md-4">
+    <b><label for="cn">Contact No.</label></b>
+      <input type="text" required name="contactnumber" class="form-control" id="number">
+  </div>
+
+  <div class="form-group col-md-4">
+    <b><label for="Email">Email</label></b>
+      <input type="email" required name="email" class="form-control" id="email">
+   </div>
+</div>
+</section>
+
+<hr class="my-6">
+<section> <br>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<h1 class="h3 mb-0 text-gray-800">Beneficiaries</h1>
         </div>
+<div class="form">
+    <b><label for="primary"><i>Primary</i></label></b>
+  </div>
+
+<div class="form-row">
+  <div class="form-group col-md-5">
+    <b><label for="nameP">Name</label></b>
+      <input type="text" required id="pname" class="form-control"name="pname">
+  </div>
+
+  <div class="form-group col-md-3">
+    <b><label for="rel1">Relationship</label></b>
+      <input type="text" required id="prelationship" class="form-control"name="prelationship">
+  </div>
+
+  <div class="form-group col-md-1">
+    <b><label for="Age1">Age</label></b>
+      <input type="number" required id="page" class="form-control"name="page">
+  </div>
+
+  <div class="form-group col-md-3">
+    <b><label for="hbd1">Birthday</label></b>
+      <input type="date" required id="pbday" name="pbday"class="form-control">
+  </div>
+</div>
+
+<div class="form">
+    <b><label for="Contingent"><i>Contingent</i></label></b>
+  </div>
+
+<div class="form-row">
+  <div class="form-group col-md-5">
+    <b><label for="nameC">Name</label></b>
+      <input type="text" required id="cname" class="form-control"name="cname">
+  </div>
+
+  <div class="form-group col-md-3">
+    <b><label for="rel2">Relationship</label></b>
+      <input type="text" required id="crelationship" class="form-control"name="crelationship">
+  </div>
+
+  <div class="form-group col-md-1">
+    <b><label for="Age2">Age</label></b>
+      <input type="number" required id="cage" class="form-control"name="cage">
+  </div>
+
+  <div class="form-group col-md-3">
+    <b><label for="hbd2">Birthday</label></b>
+      <input type="date" required id="cbday" name="cbday"
+class="form-control">
+  </div>
+</div>
+</section>
+
+<hr class="my-6">
+<section> <br>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Sales Agent Information</h1>
+        </div>
+
+<div class="form-row">
+  <div class="form-group col-md-3" id="">
+    <b><label for="agent">Agent ID</label></b>
+      <input type="text" placeholder="Enter Referrer ID" required onchange="getid(this.value)" id="agentid" name="agentid" list="agentid_list" class="form-control">
+      <datalist id="agentid_list">
+          <?php
+          $getstatus = mysqli_query($con,"select * from agents");
+          if($getstatus) 
+          {
+                while($checkstatus = mysqli_fetch_array($getstatus))
+                {
+                  $showall = $checkstatus["agent-id"];
+                  echo"
+                  <option>$showall</option>";
+                }
+          }
+          ?>
+      </datalist>
+  </div>
+  <div class="form-group col-md-4">
+    <b><label for="afn">Agent Full Name</label></b>
+      <input type="text" required readonly style="background-color:white;" Placeholder="Please Select AgentID"name="afullname" id="agent-fullname"class="form-control">
+  </div>
+
+  <div class="form-group col-md-4">
+    <b><label for="position">Position</label></b>
+      <input type="text" required readonly style="background-color:white;" Placeholder="Please Select AgentID" name="aposition" id="agent-position"
+class="form-control">
+  </div>
+
+</div>
+</section>
+
+<hr class="my-6">
+<section> <br>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<h1 class="h3 mb-0 text-gray-800">Plan Type</h1>
+        </div>
+
+<div class="form-row">
+  <div class="form-group col-md-4">
+    <b><label for="pt">Plan Type</label></b>
+      <select id="plantype" required name="plantype" list="plan_type_list" class="form-control">
+      <datalist id="plan_type_list">
+                    <option value="" selected hidden>Choose...</option>
+          <?php
+          $getstatus = mysqli_query($con,"select * from plan_type_list");
+          if($getstatus) 
+          {
+                while($checkstatus = mysqli_fetch_array($getstatus))
+                {
+                  $showall = $checkstatus['LIST'];
+                  echo"<option name='plantype'>$showall</option>";
+                }
+          }
+          ?>
+      </select>
+  </div>
+
+  <div class="form-group col-md-4">
+    <b><label for="mtp">Mode of Payment</label></b>
+      <select onchange="calculate(this.value)"id="modeofpayment" required name="modeofpayment" list="months_to_pay_list" class="form-control">
+      <datalist id="mode_of_payment_list">
+                    <option value="" selected hidden>Choose...</option>
+          <?php
+          $getstatus = mysqli_query($con,"select * from mode_of_payment_list");
+          if($getstatus) 
+          {
+                while($checkstatus = mysqli_fetch_array($getstatus))
+                {
+                  $showall = $checkstatus['LIST'];
+                  echo"<option>$showall</option>";
+                }
+          }
+          ?>
+      </select>
+  </div>
+
+  <div class="form-group col-md-4">
+    <b><label for="ta">Amount to Pay/Month</label></b>
+      <input type="number" required readonly style="background-color:white;" Placeholder="Choose Mode of Payment" id="amounttopay" name="amounttopay" class="form-control">
     </div>
+    
+  <div class="form-group col-md-4">
+    <b><label for="ta">Number of Payments to Pay</label></b>
+      <input type="text" required readonly style="background-color:white;" Placeholder="Choose Mode of Payment" id="numberperpay" name="numberperpay" class="form-control">
+  </div>
+  <div class="form-group col-md-4">
+    <b><label for="ta">Amount Per Pay</label></b>
+      <input type="number" required readonly style="background-color:white;" Placeholder="Choose Mode of Payment" id="amountperpay" name="amountperpay" class="form-control">
+  </div>
+  <div class="form-group col-md-4">
+    <b><label for="ta">Total Amount</label></b>
+      <input type="number" required readonly style="background-color:white;" Placeholder="Choose Mode of Payment" id="totalamount" name="totalamount" class="form-control">
+  </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</div>
+</section>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<hr class="my-6">
+<section> <br>
+<h4><b>Declaration of Health Status</b></h4>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+<div> I herby declare that I am free from any harmful and dreaded diseases like:</div>
+<div> (<i> Answer with Yes or No </i>) </div><br>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart/js/Chart.min.js"></script>
+<div class="row ">
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">1. Any Cardiovascular Problem</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes1" name="num1" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no1" name="num1" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">2. Cancer/Tumor/Neoplasm</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes2" name="num2" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no2" name="num2" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">3. Diabetes Mellitus <i>(all types)</i></label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes3" name="num3" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no3" name="num3" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">4. Kidney Problem</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes4" name="num4" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no4" name="num4" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">5. Severe Respiratory Problem</label></b>
+        <div class="form-group">
+          <input class="radio-inline" id="yes5" name="num5" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no5" name="num5" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">6. Hernias</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes6" name="num6" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no6" name="num6" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">7. Endometriosis</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes7" name="num7" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no7" name="num7" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">8. Hemorrhoids</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes8" name="num8" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no8" name="num8" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">9. Ear-Nose-Throat Condition Requiring Surgery</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes9" name="num9" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no9" name="num9" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">10. Cataracts/Glaucoma</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes10" name="num10" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no10" name="num10" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">11. Epilepsy</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes11" name="num11" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no11" name="num11" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">12. Cirrhosis of the Liver</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes12" name="num12" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no12" name="num12" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">13. Anal Fistulae</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes13" name="num13" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no13" name="num13" value="no "type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">14. Calculi of the Urinary System</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes14" name="num14" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no14" name="num14" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">15. Gastric/Duodenal Ulcer</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes15" name="num15" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no15" name="num15" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">16. Hallux Valgus</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes16" name="num16" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no16" name="num16" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">17. Collagen Diseases</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes17" name="num17" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no17" name="num17" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">18. Hypertension</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes18" name="num18" value="yes" type="radio">Yes
+          <input class="radio-inline"id="no18" name="num18" value="no" type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-5">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">19. Cholecystitis/Choielithiasis</label></b>
+        <div class="form-group">
+          <input class="radio-inline"id="yes19" name="num19" value="yes"type="radio">Yes
+          <input class="radio-inline"id="no19" name="num19" value="no"type="radio">No
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-lg-auto">
+      <div class="d-flex justify-content-between">
+        <label class="Bold">20. Others</label></b>&nbsp
+        <div class="form-group">
+       <textarea class="form-control" required name="num20" id="num20" rows="2" cols="40" placeholder="Type here"></textarea>
+      </div>
+      </div>
+    </div>
+  </div>
+<div>&nbsp <i>The following, among others, when occurring during the first year of the coverage after the effective date, are considered Pre-Existing.</i></div>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
+
+</div>
+</section>
+
+<section class="text-center">
+  <button class="btn btn-primary" type="Reset">Reset</button>
+  <button class="btn btn-primary"name="submit">Submit</button> 
+<?php include "../../connections/process.php";?>
+</section>
+</section>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../../js/sb-admin-2.min.js"></script>
+<script>
+        </script>
+<script>
+    //var city = document.getElementById("city").value.toString();
+  //var province = $('#province option:selected').text();
+  function getaddress()
+  {
+    document.getElementById("newprovince").value = $('#province option:selected').text();
+    document.getElementById("newcity").value = $('#city option:selected').text();
+    document.getElementById("newbarangay").value = $('#barangay option:selected').text();
+  }
+</script>
+<!-- Page level plugins -->
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+
+        <!-- script type="text/javascript" src="jquery.ph-locations.js"></script -->
+        <script type="text/javascript" src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations.js"></script -->
+        <script type="text/javascript">
+            
+            var my_handlers = {
+
+
+                fill_cities: function(){
+
+                    var province_code = $(this).val().toString();
+                    $('#city').ph_locations( 'fetch_list', [{"province_code": province_code}]);
+                },
+
+
+                fill_barangays: function(){
+
+                    var city_code = $(this).val().toString();
+                    $('#barangay').ph_locations('fetch_list', [{"city_code": city_code}]);
+                }
+            };
+
+            $(function(){
+             
+                $('#province').on('change', my_handlers.fill_cities);
+                $('#city').on('change', my_handlers.fill_barangays);
+
+               
+                $('#province').ph_locations({'location_type': 'provinces'});
+                $('#city').ph_locations({'location_type': 'cities'});
+                $('#barangay').ph_locations({'location_type': 'barangays'});
+
+                $('#province').ph_locations('fetch_list');
+            });
+            
+            $("#province").on('change', function(val){ console.log(val)});
+        </script>
+<script src="../sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="../sweetalert2.min.css">
+<script>
+  /*<! =============== AUTO CHECK NO =============== !>*/
+  var yes1 = document.getElementById("yes1").checked;
+  var yes2 = document.getElementById("yes2").checked;
+  var yes3 = document.getElementById("yes3").checked;
+  var yes4 = document.getElementById("yes4").checked;
+  var yes5 = document.getElementById("yes5").checked;
+  var yes6 = document.getElementById("yes6").checked;
+  var yes7 = document.getElementById("yes7").checked;
+  var yes8 = document.getElementById("yes8").checked;
+  var yes9 = document.getElementById("yes9").checked;
+  var yes10 = document.getElementById("yes10").checked;
+  var yes11 = document.getElementById("yes11").checked;
+  var yes12 = document.getElementById("yes12").checked;
+  var yes13= document.getElementById("yes13").checked;
+  var yes14 = document.getElementById("yes14").checked;
+  var yes15 = document.getElementById("yes15").checked;
+  var yes16 = document.getElementById("yes16").checked;
+  var yes17 = document.getElementById("yes17").checked;
+  var yes18 = document.getElementById("yes18").checked;
+  var yes19 = document.getElementById("yes19").checked;
+  if(yes1==false&&yes2==false&&yes3==false&&yes4==false&&yes5==false&&yes6==false&&yes7==false&&yes8==false&&yes9==false&&yes10==false&&yes11==false&&yes12==false&&yes13==false&&yes14==false&&yes15==false&&yes16==false&&yes17==false&&yes18==false&&yes19==false)
+  {
+    document.getElementById("no1").checked = true;
+    document.getElementById("no2").checked = true;
+    document.getElementById("no3").checked = true;
+    document.getElementById("no4").checked = true;
+    document.getElementById("no5").checked = true;
+    document.getElementById("no6").checked = true;
+    document.getElementById("no7").checked = true;
+    document.getElementById("no8").checked = true;
+    document.getElementById("no9").checked = true;
+    document.getElementById("no10").checked = true;
+    document.getElementById("no11").checked = true;
+    document.getElementById("no12").checked = true;
+    document.getElementById("no13").checked = true;
+    document.getElementById("no14").checked = true;
+    document.getElementById("no15").checked = true;
+    document.getElementById("no16").checked = true;
+    document.getElementById("no17").checked = true;
+    document.getElementById("no18").checked = true;
+    document.getElementById("no19").checked = true;
+  }
+  else if(yes1==true&&yes2==true&&yes3==true&&yes4==true&&yes5==true&&yes6==true&&yes7==true&&yes8==true&&yes9==true&&yes10==true&&yes11==true&&yes12==true&&yes13==true&&yes14==true&&yes15==true&&yes16==true&&yes17==true&&yes18==true&&yes19==true)
+  {
+    document.getElementById("no1").checked = false;
+    document.getElementById("no2").checked = false;
+    document.getElementById("no3").checked = false;
+    document.getElementById("no4").checked = false;
+    document.getElementById("no5").checked = false;
+    document.getElementById("no6").checked = false;
+    document.getElementById("no7").checked = false;
+    document.getElementById("no8").checked = false;
+    document.getElementById("no9").checked = false;
+    document.getElementById("no10").checked = false;
+    document.getElementById("no11").checked = false;
+    document.getElementById("no12").checked = false;
+    document.getElementById("no13").checked = false;
+    document.getElementById("no14").checked = false;
+    document.getElementById("no15").checked = false;
+    document.getElementById("no16").checked = false;
+    document.getElementById("no17").checked = false;
+    document.getElementById("no18").checked = false;
+    document.getElementById("no19").checked = false;
+  }
+/*<!-- ========== Print Design =========== --!>*/
+function printDiv() {
+            var divContents = document.getElementById("Summary").innerHTML;
+            var a = window.open('', '', 'height=500, width=500');
+            a.document.write('<html>');
+            a.document.write('<body >Receipt ba to?<h3> <br>');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+        }
+/*<!-- ========== Get Plan Type =========== --!>*/
+function calculate(value)
+{
+  var webrequest=new XMLHttpRequest();
+  webrequest.onreadystatechange = function()
+  {
+    if(value.lenght == 0)
+    {
+      document.getElementById("amounttopay").value = "";
+      document.getElementById("numberperpay").value = "";
+      document.getElementById("amountperpay").value = "";
+      document.getElementById("totalamount").value = "";
+      return;
+    }
+    if(this.readyState == 4 && this.status == 200)
+    {
+      var arr = JSON.parse(this.responseText);
+      document.getElementById("amounttopay").value = arr[0];
+      document.getElementById("numberperpay").value = arr[1];
+      document.getElementById("amountperpay").value = arr[2];
+      document.getElementById("totalamount").value = arr[3];
+    }
+  }
+
+  var type = document.getElementById("plantype").value;
+  webrequest.open("GET","autofill.php?amount="+value+"&type="+type, true);
+  webrequest.send();
+} 
+/*<!-- ========== Get Agent =========== --!>*/
+  function getid(value)
+  {
+    var webrequest=new XMLHttpRequest();
+    webrequest.onreadystatechange = function()
+    {
+      if(value.lenght == 0)
+      {
+        document.getElementById("agent-fullname").value = "";
+        document.getElementById("agent-position").value = "";
+        return;
+      }
+      if(this.readyState == 4 && this.status == 200)
+      {
+        var arr = JSON.parse(this.responseText);
+        document.getElementById("agent-fullname").value = arr[0];
+        document.getElementById("agent-position").value = arr[1];
+      }
+    }
+    webrequest.open("GET","autofill.php?name="+value, true);
+    webrequest.send();
+}
+</script>
+<script>
+     let date = new Date();
+     var year = date.getFullYear();
+     var month = date.getMonth()+1;
+     var day = date.getDate();
+     var currentdate = `${month}/${day}/${year}`;
+        document.getElementById("date").value = `${currentdate}`;
+ 
+</script>
 </body>
-
 </html>
