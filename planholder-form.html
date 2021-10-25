@@ -23,6 +23,39 @@
     <!-- Custom styles for this template -->
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<style type="text/css">
+.avatar-wrapper {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  margin: 50px auto;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 1px 1px 15px -5px black;
+  transition: all 0.3s ease;
+}
+.avatar-wrapper:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.avatar-wrapper:hover .profile-pic {
+  opacity: 0.5;
+}
+.avatar-wrapper .profile-pic {
+  height: 100%;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+.avatar-wrapper .profile-pic:after {
+  font-family: FontAwesome;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+</style>
+
 </head>
 
 <body id="page-top">
@@ -218,10 +251,13 @@
 <form>
 <section>
 
-<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
-                <img src="ffpi.jpg" style="width: 100px; height: 100px;" class="img-rounded">
-            </div>
-
+<div class="avatar-wrapper">
+	<img class="profile-pic" src="" />
+	<div class="upload-button">
+		<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+	</div>
+	<input class="file-upload" type="file" accept="image/*"/>
+</div>
 
 <div class="form-row needs-validation" novalidate>
     <div class="form-group col-md-4">
